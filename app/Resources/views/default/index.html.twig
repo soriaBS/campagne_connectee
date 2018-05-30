@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <a class="btn" href="{{ path('produit_ajouter') }}">Ajouter un produit</a>
+	{% for produit in produits %}
+		{% if not produit.estHistorise %}
+        	<div>
+        		<a href="{{ path("produit_afficher", {"slug": produit.slug }) }}"  width="10%" height="10%"/><img src="{{ asset("images/produits/"~produit.images[0].libelle ) }}" ></a>
+        		<a class="btn" href="{{ path("produit_supprimer", {"slug": produit.slug }) }}">Supprimer</a>
+        		<a class="btn" href="{{ path("produit_modifier", {"slug": produit.slug }) }}">Modifier</a>
+        	</div>
+    	{% endif %}
+	{% endfor %}
+	Produits Historises
+	{% for produit in produits %}
+		{% if produit.estHistorise %}
+        	<div>
+        		<img src="{{ asset("images/produits/"~produit.images[0].libelle ) }}" width="10%" height="10%"/>
+        		<a class="btn" href="{{ path("produit_modifier", {"slug": produit.slug }) }}">Republier cet article</a>
+        	</div>
+    	{% endif %}
+	{% endfor %}
+{% endblock %}
